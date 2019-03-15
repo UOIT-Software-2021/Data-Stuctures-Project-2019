@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Data_Structures__Linked_List_
 {
-    public partial class Form1 : Form
+    public partial class searchResults : Form
     {
-        public Form1()
+        public searchResults()
         {
             InitializeComponent();
         }

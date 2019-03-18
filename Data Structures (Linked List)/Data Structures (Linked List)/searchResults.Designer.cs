@@ -48,6 +48,7 @@
             this.txtBoxResults.Location = new System.Drawing.Point(7, 30);
             this.txtBoxResults.Multiline = true;
             this.txtBoxResults.Name = "txtBoxResults";
+            this.txtBoxResults.ReadOnly = true;
             this.txtBoxResults.Size = new System.Drawing.Size(848, 585);
             this.txtBoxResults.TabIndex = 0;
             // 
@@ -59,6 +60,7 @@
             this.Controls.Add(this.grpBoxResults);
             this.Name = "searchResults";
             this.Text = "Search Results";
+            this.Load += new System.EventHandler(this.SearchResults_Load);
             this.grpBoxResults.ResumeLayout(false);
             this.grpBoxResults.PerformLayout();
             this.ResumeLayout(false);

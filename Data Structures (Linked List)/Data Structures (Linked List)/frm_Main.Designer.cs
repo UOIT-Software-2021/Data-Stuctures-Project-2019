@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.grpBoxOperations = new System.Windows.Forms.GroupBox();
+            this.rdoBtnSearch = new System.Windows.Forms.RadioButton();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnExecute = new System.Windows.Forms.Button();
             this.rdoBtnRemove = new System.Windows.Forms.RadioButton();
@@ -38,7 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtBoxKey = new System.Windows.Forms.TextBox();
             this.grpBoxVisualization = new System.Windows.Forms.GroupBox();
-            this.rdoBtnSearch = new System.Windows.Forms.RadioButton();
             this.grpBoxOperations.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +61,17 @@
             this.grpBoxOperations.Text = "Operations";
             this.grpBoxOperations.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
+            // rdoBtnSearch
+            // 
+            this.rdoBtnSearch.AutoSize = true;
+            this.rdoBtnSearch.Location = new System.Drawing.Point(20, 315);
+            this.rdoBtnSearch.Name = "rdoBtnSearch";
+            this.rdoBtnSearch.Size = new System.Drawing.Size(111, 29);
+            this.rdoBtnSearch.TabIndex = 8;
+            this.rdoBtnSearch.TabStop = true;
+            this.rdoBtnSearch.Text = "Search";
+            this.rdoBtnSearch.UseVisualStyleBackColor = true;
+            // 
             // btnClear
             // 
             this.btnClear.Location = new System.Drawing.Point(114, 448);
@@ -79,6 +90,7 @@
             this.btnExecute.TabIndex = 6;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
+            this.btnExecute.Click += new System.EventHandler(this.BtnExecute_Click);
             // 
             // rdoBtnRemove
             // 
@@ -126,7 +138,6 @@
             this.label1.Size = new System.Drawing.Size(49, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Key";
-            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // txtBoxKey
             // 
@@ -143,17 +154,6 @@
             this.grpBoxVisualization.TabIndex = 1;
             this.grpBoxVisualization.TabStop = false;
             this.grpBoxVisualization.Text = "Visualization";
-            // 
-            // rdoBtnSearch
-            // 
-            this.rdoBtnSearch.AutoSize = true;
-            this.rdoBtnSearch.Location = new System.Drawing.Point(20, 315);
-            this.rdoBtnSearch.Name = "rdoBtnSearch";
-            this.rdoBtnSearch.Size = new System.Drawing.Size(111, 29);
-            this.rdoBtnSearch.TabIndex = 8;
-            this.rdoBtnSearch.TabStop = true;
-            this.rdoBtnSearch.Text = "Search";
-            this.rdoBtnSearch.UseVisualStyleBackColor = true;
             // 
             // frm_Main
             // 

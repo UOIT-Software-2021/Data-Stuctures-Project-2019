@@ -16,5 +16,18 @@ namespace Data_Structures__Linked_List_
         {
             InitializeComponent();
         }
+
+        public String keyValue
+        {
+            set
+            {
+                grpBoxResults.Text = "Key: " + value.ToString();
+            }
+        }
+
+        private void SearchResults_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

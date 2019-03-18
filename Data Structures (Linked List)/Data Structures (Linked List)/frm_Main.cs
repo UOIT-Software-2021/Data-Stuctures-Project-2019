@@ -12,7 +12,7 @@ namespace Data_Structures__Linked_List_
 {
     public partial class frm_Main : Form
     {
-        private searchResults results;
+        
         public frm_Main()
         {
             InitializeComponent();
@@ -24,14 +24,6 @@ namespace Data_Structures__Linked_List_
 
         }
 
-        private void Label1_Click(object sender, EventArgs e)
-        {
-            if (rdoBtnSearch.Checked)
-            {
-                results.Show();
-            }
-        }
-
         private void BtnClear_Click(object sender, EventArgs e)
         {
             txtBoxKey.Text = "";
@@ -39,6 +31,16 @@ namespace Data_Structures__Linked_List_
             rdoBtnAdd.Checked = false;
             rdoBtnRemove.Checked = false;
             rdoBtnSearch.Checked = false;
+        }
+
+        private void BtnExecute_Click(object sender, EventArgs e)
+        {
+            if (rdoBtnSearch.Checked)
+            {
+                searchResults results = new searchResults();
+                results.keyValue = txtBoxKey.Text;
+                results.Show();
+            }
         }
     }
 }

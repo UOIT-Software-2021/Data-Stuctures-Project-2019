@@ -11,12 +11,16 @@ public class SkiplistCell {
 		linkRight = right;
 	}
 	
-	public SkiplistCell(String val) {
+	public SkiplistCell(String val, int left, int right){
 		if (val.equalsIgnoreCase("inf")) {
 			value = Integer.MAX_VALUE;
+			this.linkLeft = (Integer) null;
+			this.linkRight = right;
 		}
 		else if (val.equalsIgnoreCase("-inf")) {
 			value = Integer.MIN_VALUE;
+			this.linkLeft = left;
+			this.linkRight = (Integer) null;
 		}
 		else if (val.equalsIgnoreCase("null")) {
 			nullCell = true;

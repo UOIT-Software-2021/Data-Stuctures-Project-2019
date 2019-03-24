@@ -31,13 +31,16 @@ public class SkiplistLayer {
 		list.add(new SkiplistCell("inf",arr[arr.length-1],0));
 	}
 
-	public void setLayer() {
-
+	public void setLayer(int layer) {
+		this.layer = layer;
 	}
 
-	public void getLayer() {
-
+	public int getLayer() {
+		return this.layer;
 	}
 
+	public ArrayList<SkiplistCell> getList() {
+		return this.list;
+	}
 
 }

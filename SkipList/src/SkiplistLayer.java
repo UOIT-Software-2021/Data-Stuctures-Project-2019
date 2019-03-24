@@ -9,14 +9,14 @@ public class SkiplistLayer {
 		layer = -1;
 		
 		//header
-		list.add(new SkiplistCell("-inf"));
+		list.add(new SkiplistCell("-inf",0,0));
 		//tail
-		list.add(new SkiplistCell("inf"));
+		list.add(new SkiplistCell("inf",0,0));
 	}
 	
 	public SkiplistLayer(int layer, boolean isSorted, int[] arr) {
 		this.layer = layer;
-		list.add(new SkiplistCell("-inf"));
+		list.add(new SkiplistCell("-inf",0,arr[0]));
 		for (int i = 0; i < arr.length; i++){
 			if (list.get(i).linkLeft == Integer.MIN_VALUE){
 				list.add(new SkiplistCell(i,Integer.MIN_VALUE,arr[i+1]));
@@ -28,7 +28,7 @@ public class SkiplistLayer {
 				list.add(new SkiplistCell(i,arr[i-1],arr[i+1]));
 			}
 		}
-		list.add(new SkiplistCell("inf"));
+		list.add(new SkiplistCell("inf",arr[arr.length-1],0));
 	}
 
 	public void setLayer() {

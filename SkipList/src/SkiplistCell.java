@@ -32,4 +32,19 @@ public class SkiplistCell {
 		return value;		
 	}
 	
+	public void setRightLink(int link) {
+		this.linkRight = link;	
+	}
+	
+	public int getRightLink() {
+		return this.linkRight;
+	}
+	
+	public void setLeftLink(int link) {
+		this.linkLeft = link;	
+	}
+	
+	public int getLeftLink() {
+		return linkLeft;
+	}
 }

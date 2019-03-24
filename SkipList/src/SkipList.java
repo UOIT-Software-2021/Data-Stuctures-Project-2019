@@ -2,19 +2,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SkipList {
-	//FIXME eventually needs to be a 2D arraylist
-	private ArrayList<SkiplistCell> list;
+	private ArrayList<SkiplistLayer> list;
 
 	/**
 	 * new skiplist with only a header and a tail
 	 */
 	public SkipList() {
-		list = new ArrayList<SkiplistCell>();
+		list = new ArrayList<SkiplistLayer>();
 
 		//header
-		list.add(new SkiplistCell("inf"));
+		//list.add(new SkiplistCell("inf"));
 		//tail
-		list.add(new SkiplistCell("-inf"));
+		//list.add(new SkiplistCell("-inf"));
 	}
 
 	/**
@@ -22,10 +21,10 @@ public class SkipList {
 	 * @param arr
 	 */
 	public SkipList(int[] arr) {
-		list = new ArrayList<SkiplistCell>();
+		list = new ArrayList<SkiplistLayer>();
 		
 		//header
-		list.add(new SkiplistCell("inf"));
+		//list.add(new SkiplistCell("inf"));
 		
 		//check if the input data is sorted
 		boolean isInputSorted = false;
@@ -47,20 +46,28 @@ public class SkipList {
 		//add all elements to the list
 		for (int i = 0; i < arr.length; i++) {
 			if (i + 1 < arr.length) {
-				list.add(new SkiplistCell(arr[i], 0, 0, list.get(list.size() - 1).getValue(), list.get(list.size() + 1).getValue()));
+				//list.add(new SkiplistCell(arr[i], 0, 0, list.get(list.size() - 1).getValue(), list.get(list.size() + 1).getValue()));
 			}
 			else {
-				list.add(new SkiplistCell(arr[i], 0, 0, list.get(list.size() - 1).getValue(), Integer.MAX_VALUE));
+				//list.add(new SkiplistCell(arr[i], 0, 0, list.get(list.size() - 1).getValue(), Integer.MAX_VALUE));
 			}
 		}
 		
 		//tail
-		list.add(new SkiplistCell("-inf"));
+		//list.add(new SkiplistCell("-inf"));
 		
 	}
 	
 	@Override
 	public String toString() {
+		String str = "";
+		
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				
+			}
+		}
+		
 		return null;
 	}
 

@@ -1,12 +1,10 @@
 
 public class SkiplistCell {
 	private int value;
-	protected int linkUp, linkDown, linkLeft, linkRight;
+	protected int linkLeft, linkRight;
 	
-	public SkiplistCell (int value, int up, int down, int left, int right) {
+	public SkiplistCell (int value, int left, int right) {
 		value = 0;
-		linkUp = up;
-		linkDown = down;
 		linkLeft = left;
 		linkRight = right;
 	}

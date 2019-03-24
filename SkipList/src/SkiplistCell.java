@@ -1,4 +1,3 @@
-
 public class SkiplistCell {
 	boolean nullCell;
 	private int value;

@@ -10,10 +10,7 @@ public class SkipList {
 	public SkipList() {
 		list = new ArrayList<SkiplistLayer>();
 
-		//header
-		//list.add(new SkiplistCell("inf"));
-		//tail
-		//list.add(new SkiplistCell("-inf"));
+		
 	}
 
 	/**

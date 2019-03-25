@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SkipList {
 	private ArrayList<SkiplistLayer> list;
@@ -25,6 +24,19 @@ public class SkipList {
 				
 	}
 	
+	public void insert(int val) {
+		double rand = Math.random();
+		
+		while (rand > 0.5) {
+			
+		}
+	}
+	
+	public int search(int regex) {
+		
+		return -1;
+	}
+	
 	@Override
 	public String toString() {
 		String str = "";
@@ -37,5 +49,7 @@ public class SkipList {
 		}
 		return str;
 	}
+	
+	
 
 }

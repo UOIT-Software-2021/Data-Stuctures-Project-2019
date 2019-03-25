@@ -3,13 +3,19 @@ public class SkiplistCell {
 	private int value;
 	protected int linkLeft, linkRight;
 	
+	public SkiplistCell (int value) {
+		this.value = value;
+		//no links therefore it must be edited to be used in the layers
+	}
+	
 	public SkiplistCell (int value, int left, int right) {
-		value = 0;
+		this.value = value;
 		nullCell = false;
 		linkLeft = left;
 		linkRight = right;
 	}
 	
+	@SuppressWarnings("null")
 	public SkiplistCell(String val, int left, int right){
 		if (val.equalsIgnoreCase("inf")) {
 			value = Integer.MAX_VALUE;

@@ -22,20 +22,20 @@ public class SkipList {
 		list = new ArrayList<SkiplistLayer>();
 		
 		
+				
 	}
 	
 	@Override
 	public String toString() {
 		String str = "";
 		
-		for (int i = 0; i < height; i++) {
+		for (int i = height - 1; i > 0; i--) {
 			for (int j = 0; j < width; j++) {
-				
+				str += list.get(i).getCell(j);
 			}
 			str += "\n";
 		}
-		
-		return null;
+		return str;
 	}
 
 }

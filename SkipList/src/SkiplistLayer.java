@@ -56,6 +56,15 @@ public class SkiplistLayer {
 		list.get(list.indexOf(right)).setLeftLink(insertCell.getValue());
 	}
 
+	public void modifyCell(SkiplistCell left, SkiplistCell modifyCell, SkiplistCell right){
+		//modify cell
+		list.get(list.indexOf(left)+1).setValue(modifyCell.getValue());
+		//set left cell to link to modified cell on right
+		list.get(list.indexOf(left)).setRightLink(modifyCell.getValue());
+		//set right cell to link to modified cell on left
+		list.get(list.indexOf(right)).setLeftLink(modifyCell.getValue());
+	}
+
 	public void removeCell(SkiplistCell left, SkiplistCell removeCell, SkiplistCell right){
 		//set left cell to link to right cell
 		list.get(list.indexOf(removeCell)-1).setRightLink(right.getValue());

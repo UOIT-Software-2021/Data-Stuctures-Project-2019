@@ -1,3 +1,4 @@
+import java.net.SocketImplFactory;
 import java.util.ArrayList;
 
 public class SkiplistLayer {
@@ -41,6 +42,23 @@ public class SkiplistLayer {
 
 	public ArrayList<SkiplistCell> getList() {
 		return this.list;
+	}
+
+	public SkiplistCell getCell(int index){
+		return list.get(index);
+	}
+
+	public void insertCell(SkiplistCell left, SkiplistCell insertCell, SkiplistCell right){
+		
+	}
+
+	public void removeCell(SkiplistCell left, SkiplistCell removeCell, SkiplistCell right){
+		//set left cell to link to right cell
+		list.get(list.indexOf(removeCell)-1).setRightLink(right.getValue());
+		//set right cell to link to left cell
+		list.get(list.indexOf(removeCell)+1).setLeftLink(left.getValue());
+		//remove desired cell
+		list.remove(list.indexOf(removeCell));
 	}
 
 }

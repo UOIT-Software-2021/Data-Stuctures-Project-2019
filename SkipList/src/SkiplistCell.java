@@ -32,6 +32,9 @@ public class SkiplistCell {
 		}
 	}
 
+	public boolean isNull() {
+		return nullCell;
+	}
 	
 	public void setValue(int setVal) {
 		value = setVal;

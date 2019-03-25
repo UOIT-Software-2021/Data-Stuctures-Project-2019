@@ -49,7 +49,12 @@ public class SkiplistLayer {
 	}
 
 	public void insertCell(SkiplistCell left, SkiplistCell insertCell, SkiplistCell right){
-		
+		//insert new cell
+		list.add(list.indexOf(left)+1, insertCell);
+		//set left cell to link to new cell on right
+		list.get(list.indexOf(left)).setRightLink(insertCell.getValue());
+		//set right cell to link to new cell on left
+		list.get(list.indexOf(right)).setLeftLink(insertCell.getValue());
 	}
 
 	public void removeCell(SkiplistCell left, SkiplistCell removeCell, SkiplistCell right){

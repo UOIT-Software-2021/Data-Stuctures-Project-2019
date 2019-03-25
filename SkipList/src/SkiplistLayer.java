@@ -48,12 +48,14 @@ public class SkiplistLayer {
 	}
 
 	public void setLinks(SkiplistCell left, SkiplistCell centerCell, SkiplistCell right, boolean opType){
+		//if inserting or modifying a cell
 		if (opType){
-			//set left cell to link to new cell on right
+			//set left cell to link to new/modified cell on right
 			list.get(list.indexOf(left)).setRightLink(centerCell.getValue());
-			//set right cell to link to new cell on left
+			//set right cell to link to new/modified cell on left
 			list.get(list.indexOf(right)).setLeftLink(centerCell.getValue());
 		}
+		//if removing a cell
 		else {
 			//set left cell to link to right cell
 			list.get(list.indexOf(centerCell)-1).setRightLink(right.getValue());

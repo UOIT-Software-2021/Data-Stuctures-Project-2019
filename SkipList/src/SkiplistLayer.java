@@ -94,16 +94,5 @@ public class SkiplistLayer {
 		//remove desired cell
 		list.remove(list.indexOf(removeCell));
 	}
-	
-	@Override
-	public String toString() {
-		String str = "";
-		
-		for (int i = 0; i < list.size(); i++) {
-			str += list.get(i).toString() + " ";
-		}
-		
-		return str;
-	}
 
 }

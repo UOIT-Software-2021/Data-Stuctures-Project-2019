@@ -4,6 +4,7 @@ public class Skiplist {
 	private ArrayList<SkiplistLayer> list;
 	private ArrayList<Integer> layerWidth;
 	private int height;
+	private int maxWidth;
 
 	/**
 	 * new skiplist with only a header and a tail
@@ -12,6 +13,7 @@ public class Skiplist {
 		height = 1;
 		list = new ArrayList<SkiplistLayer>(0);
 		setLayerWidth();
+		maxWidth = layerWidth.get(0);
 	}
 
 	/**
@@ -21,7 +23,7 @@ public class Skiplist {
 	 */
 	public Skiplist(int[] arr) {
 		list = new ArrayList<SkiplistLayer>(0);
-		
+
 		int[] numReps = new int[arr.length];
 
 		double rand = Math.random();
@@ -35,15 +37,15 @@ public class Skiplist {
 		while (getArrayMaxVal(arr) > 0) {
 			int[] temp = new int[getNumPosNumbers(numReps)];
 			ArrayList<Integer> array = new ArrayList<Integer>();
-			
+
 			for (int i = 0; i < numReps.length; i++) {
 				if (numReps[i] > 0) {
 					numReps[i]--;
 					array.add(arr[i]);
 				}
 			}
-			
-			for (int i = 0; i< temp.length; i++) {
+
+			for (int i = 0; i < temp.length; i++) {
 				temp[i] = array.get(i);
 			}
 			list.add(new SkiplistLayer(list.size(), isSorted(temp), temp));
@@ -51,9 +53,11 @@ public class Skiplist {
 
 		height = list.size();
 		setLayerWidth();
+		maxWidth = layerWidth.get(0);
 	}
 
-	//FIXME not correct it's just looking for the value it needs to look for the value that's smaller than it
+	// FIXME not correct it's just looking for the value it needs to look for the
+	// value that's smaller than it
 	public void insert(int val) {
 		int index = this.search(val, 0);
 		int rightIndex = this.search(val, 1);
@@ -62,7 +66,7 @@ public class Skiplist {
 		if (index == -1 || rightIndex == -1 || leftIndex == -1) {
 			return;
 		}
-		
+
 		int numReps = 1;
 		double rand = Math.random();
 
@@ -70,7 +74,7 @@ public class Skiplist {
 			rand = Math.random();
 			numReps++;
 		}
-		
+
 		for (int i = 0; i < numReps; i++) {
 			list.get(i).insertCell(list.get(i).getCell(leftIndex), list.get(i).getCell(index), list.get(i).getCell(rightIndex));
 		}
@@ -120,9 +124,20 @@ public class Skiplist {
 	@Override
 	public String toString() {
 		String str = "";
+		String[][] strArr = new String[height][maxWidth];
 
-		for (int i = height - 1; i > 0; i++) {
-			
+		for (int i = 0; i < maxWidth; i++) {
+			int bottomVal = list.get(0).getCell(i).getValue();
+			for (int j = 0; j < height; j++) {
+				
+				//strArr[j][i] = 
+			}
+		}
+
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < maxWidth; i++) {
+				str += strArr[i][j];
+			}
 		}
 
 		return str;
@@ -144,7 +159,7 @@ public class Skiplist {
 		}
 		return max;
 	}
-	
+
 	private int getNumPosNumbers(int[] arr) {
 		int num = 0;
 		for (int i = 0; i < arr.length; i++) {
@@ -154,14 +169,14 @@ public class Skiplist {
 		}
 		return num;
 	}
-	
+
 	private boolean isSorted(int[] arr) {
 		boolean isSorted = false;
 		for (int i = 0; i < arr.length - 1; i++) {
-			if (arr[i] > arr [i + 1]) {
+			if (arr[i] > arr[i + 1]) {
 				return false;
 			}
-			if (arr[i] <= arr [i + 1]) {
+			if (arr[i] <= arr[i + 1]) {
 				isSorted = true;
 			}
 		}

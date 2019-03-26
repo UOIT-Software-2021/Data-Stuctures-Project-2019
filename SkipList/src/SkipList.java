@@ -22,7 +22,7 @@ public class SkipList {
 	public SkipList(int[] arr) {
 		list = new ArrayList<SkiplistLayer>();
 		
-		int[] numReps = new int[arr.length]
+		int[] numReps = new int[arr.length];
 
 		double rand = Math.random();
 		for (int i = 0; i < numReps.length; i++) {
@@ -33,8 +33,8 @@ public class SkipList {
 		}
 
 		SkiplistLayer temp = new SkiplistLayer();
-		for (int i = 0; i < numReps.; i++) {
-
+		for (int i = 0; i < getArrayMaxVal(numReps); i++) {
+			
 		}
 
 		height = list.size();

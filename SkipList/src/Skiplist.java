@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class SkipList {
+public class Skiplist {
 	private ArrayList<SkiplistLayer> list;
 	private ArrayList<Integer> layerWidth;
 	private int height;
@@ -8,9 +8,9 @@ public class SkipList {
 	/**
 	 * new skiplist with only a header and a tail
 	 */
-	public SkipList() {
+	public Skiplist() {
 		height = 1;
-		list = new ArrayList<SkiplistLayer>();
+		list = new ArrayList<SkiplistLayer>(0);
 		setLayerWidth();
 	}
 
@@ -19,8 +19,8 @@ public class SkipList {
 	 * 
 	 * @param arr
 	 */
-	public SkipList(int[] arr) {
-		list = new ArrayList<SkiplistLayer>();
+	public Skiplist(int[] arr) {
+		list = new ArrayList<SkiplistLayer>(0);
 		
 		int[] numReps = new int[arr.length];
 
@@ -32,9 +32,21 @@ public class SkipList {
 			}
 		}
 
-		SkiplistLayer temp = new SkiplistLayer();
-		for (int i = 0; i < getArrayMaxVal(numReps); i++) {
+		while (getArrayMaxVal(arr) > 0) {
+			int[] temp = new int[getNumPosNumbers(numReps)];
+			ArrayList<Integer> array = new ArrayList<Integer>();
 			
+			for (int i = 0; i < numReps.length; i++) {
+				if (numReps[i] > 0) {
+					numReps[i]--;
+					array.add(arr[i]);
+				}
+			}
+			
+			for (int i = 0; i< temp.length; i++) {
+				temp[i] = array.get(i);
+			}
+			list.add(new SkiplistLayer(list.size(), isSorted(temp), temp));
 		}
 
 		height = list.size();
@@ -42,11 +54,24 @@ public class SkipList {
 	}
 
 	public void insert(int val) {
+		int index = this.search(val, 0);
+		int rightIndex = this.search(val, 1);
+		int leftIndex = this.search(val, -1);
+
+		if (index == -1 || rightIndex == -1 || leftIndex == -1) {
+			return;
+		}
+		
+		int numReps = 1;
 		double rand = Math.random();
 
 		while (rand > 0.5) {
 			rand = Math.random();
-
+			numReps++;
+		}
+		
+		for (int i = 0; i < numReps; i++) {
+			list.get(i).insertCell(list.get(i).getCell(leftIndex), list.get(i).getCell(index), list.get(i).getCell(rightIndex));
 		}
 	}
 
@@ -60,7 +85,7 @@ public class SkipList {
 		}
 
 		for (int i = 0; i < height; i++) {
-			list.get(i).removeCell(null, null, null);
+			list.get(i).removeCell(list.get(i).getCell(leftIndex), list.get(i).getCell(index), list.get(i).getCell(rightIndex));
 		}
 	}
 
@@ -103,7 +128,7 @@ public class SkipList {
 		return str;
 	}
 
-	// helper methods to reduce code length
+	// helper methods to reduce code length //
 	private void setLayerWidth() {
 		for (int i = 0; i < list.size(); i++) {
 			layerWidth.add(list.get(i).getLayerWidth());
@@ -118,5 +143,28 @@ public class SkipList {
 			}
 		}
 		return max;
+	}
+	
+	private int getNumPosNumbers(int[] arr) {
+		int num = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > 0) {
+				num++;
+			}
+		}
+		return num;
+	}
+	
+	private boolean isSorted(int[] arr) {
+		boolean isSorted = false;
+		for (int i = 0; i < arr.length - 1; i++) {
+			if (arr[i] > arr [i + 1]) {
+				return false;
+			}
+			if (arr[i] <= arr [i + 1]) {
+				isSorted = true;
+			}
+		}
+		return isSorted;
 	}
 }

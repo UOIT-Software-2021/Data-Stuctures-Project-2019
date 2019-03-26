@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SkiplistLayer {
 	private ArrayList<SkiplistCell> list;
@@ -16,15 +17,21 @@ public class SkiplistLayer {
 	
 	public SkiplistLayer(int layer, boolean isSorted, int[] arr) {
 		this.layer = layer;
+		
+		if (!isSorted) {
+			Arrays.sort(arr);
+		}
+		
 		list.add(new SkiplistCell("-inf",0,arr[0]));
-		for (int i = 0; i < arr.length; i++){
-			if (list.get(i).linkLeft == Integer.MIN_VALUE){
+		
+		for (int i = 0; i < arr.length; i++) {
+			if (list.get(i).getLeftLink() == Integer.MIN_VALUE) {
 				list.add(new SkiplistCell(i,Integer.MIN_VALUE,arr[i+1]));
 			}
-			else if (list.get(i).linkRight == Integer.MAX_VALUE){
+			else if (list.get(i).getRightLink() == Integer.MAX_VALUE) {
 				list.add(new SkiplistCell(i,arr[i-1],Integer.MAX_VALUE));
 			}
-			else{
+			else {
 				list.add(new SkiplistCell(i,arr[i-1],arr[i+1]));
 			}
 		}

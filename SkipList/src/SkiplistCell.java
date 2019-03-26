@@ -1,6 +1,5 @@
 public class SkiplistCell {
-	private int value;
-	protected int linkLeft, linkRight;
+	private int value, linkLeft, linkRight;
 	
 	public SkiplistCell (int value) {
 		this.value = value;

@@ -47,6 +47,10 @@ public class SkiplistLayer {
 		return list.get(index);
 	}
 
+	public int getLayerWidth() {
+		return list.size();
+	}
+	
 	public void setLinks(SkiplistCell left, SkiplistCell centerCell, SkiplistCell right, boolean opType){
 		//if inserting or modifying a cell
 		if (opType){

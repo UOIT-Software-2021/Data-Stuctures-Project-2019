@@ -1,5 +1,4 @@
 public class SkiplistCell {
-	boolean nullCell;
 	private int value;
 	protected int linkLeft, linkRight;
 	
@@ -10,7 +9,6 @@ public class SkiplistCell {
 	
 	public SkiplistCell (int value, int left, int right) {
 		this.value = value;
-		nullCell = false;
 		linkLeft = left;
 		linkRight = right;
 	}
@@ -27,13 +25,6 @@ public class SkiplistCell {
 			this.linkLeft = (Integer) null;
 			this.linkRight = right;
 		}
-		else if (val.equalsIgnoreCase("null")) {
-			nullCell = true;
-		}
-	}
-
-	public boolean isNull() {
-		return nullCell;
 	}
 	
 	public void setValue(int setVal) {

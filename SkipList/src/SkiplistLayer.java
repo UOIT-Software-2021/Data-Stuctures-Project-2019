@@ -6,6 +6,7 @@ public class SkiplistLayer {
 	private int layer;
 	
 	public SkiplistLayer() {
+		list = new ArrayList<SkiplistCell>(0);
 		//non valid, must be changed before the layer can be used, 0 is the base layer
 		layer = -1;
 		
@@ -16,6 +17,7 @@ public class SkiplistLayer {
 	}
 	
 	public SkiplistLayer(int layer, boolean isSorted, int[] arr) {
+		list = new ArrayList<SkiplistCell>(0);
 		this.layer = layer;
 		
 		if (!isSorted) {
@@ -91,6 +93,17 @@ public class SkiplistLayer {
 		setLinks(left,removeCell,right,false);
 		//remove desired cell
 		list.remove(list.indexOf(removeCell));
+	}
+	
+	@Override
+	public String toString() {
+		String str = "";
+		
+		for (int i = 0; i < list.size(); i++) {
+			str += list.get(i).toString() + " ";
+		}
+		
+		return str;
 	}
 
 }

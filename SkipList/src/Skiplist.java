@@ -53,6 +53,7 @@ public class Skiplist {
 		setLayerWidth();
 	}
 
+	//FIXME not correct it's just looking for the value it needs to look for the value that's smaller than it
 	public void insert(int val) {
 		int index = this.search(val, 0);
 		int rightIndex = this.search(val, 1);
@@ -120,10 +121,9 @@ public class Skiplist {
 	public String toString() {
 		String str = "";
 
-		/*
-		 * no longer works for (int i = height - 1; i >= 0; i--) { for (int j = 0; j <
-		 * width; j++) { str += list.get(i).getCell(j); } str += "\n"; }
-		 */
+		for (int i = height - 1; i > 0; i++) {
+			
+		}
 
 		return str;
 	}

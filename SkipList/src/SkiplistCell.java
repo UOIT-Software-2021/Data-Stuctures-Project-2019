@@ -49,4 +49,15 @@ public class SkiplistCell {
 	public int getLeftLink() {
 		return linkLeft;
 	}
+	
+	@Override
+	public String toString() {
+		if (this.value == Integer.MAX_VALUE) {
+			return "inf";
+		}
+		else if (this.value == Integer.MIN_VALUE) {
+			return "-inf";
+		}
+		return Integer.toString(this.value);
+	}
 }

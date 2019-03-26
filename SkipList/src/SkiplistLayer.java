@@ -5,10 +5,10 @@ public class SkiplistLayer {
 	private ArrayList<SkiplistCell> list;
 	private int layer;
 
-	public SkiplistLayer() {
+	public SkiplistLayer(int layer) {
 		list = new ArrayList<SkiplistCell>(0);
 		// non valid, must be changed before the layer can be used, 0 is the base layer
-		layer = -1;
+		this.layer = layer;
 
 		// header
 		list.add(new SkiplistCell("-inf", 0, 0));

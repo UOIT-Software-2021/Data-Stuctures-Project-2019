@@ -64,11 +64,8 @@ public class Skiplist {
 	// FIXME not correct it's just looking for the value it needs to look for the
 	// value that's smaller than it
 	public void insert(int val) {
-		SkiplistCell cell = this.search(val);
 
-		if (cell == null) {
-			return;
-		}
+		SkiplistCell cell = new SkiplistCell(val);
 
 		int numReps = 1;
 		double rand = Math.random();
@@ -77,11 +74,28 @@ public class Skiplist {
 			rand = Math.random();
 			numReps++;
 		}
-
-		for (int i = 0; i < numReps; i++) {
-			// list.get(i).insertCell(list.get(i).getCell(leftIndex),
-			// list.get(i).getCell(index), list.get(i).getCell(rightIndex));
+		
+		if (numReps > height) {
+			for (int i = 0; i < numReps - height; i++) {
+				list.add(new SkiplistLayer(height + i));
+			}
 		}
+
+		try {
+			for (int i = 0; i < numReps; i++) {
+				for (int j = 0; j < layerWidth.get(i); j++) {
+					if (list.get(i).getList().get(j).getValue() > cell.getValue()) {
+						cell.setRightLink(list.get(i).getList().get(j + 1).getValue());
+						cell.setLeftLink(list.get(i).getList().get(j - 1).getValue());
+						list.get(i).insertCell(list.get(i).getList().get(j - 1), cell, list.get(i).getList().get(j + 1));
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+		}
+
+		setLayerWidth();
 	}
 
 	public void delete(int val) {
@@ -92,8 +106,7 @@ public class Skiplist {
 		}
 
 		for (int i = 0; i < height; i++) {
-			int currSize = layerWidth.get(i);
-			for (int j = 0; j < currSize; j++) {
+			for (int j = 0; j < layerWidth.get(i); j++) {
 				if (list.get(i).getList().get(j).getValue() == cell.getValue()) {
 					list.get(i).removeCell(cell);
 					break;

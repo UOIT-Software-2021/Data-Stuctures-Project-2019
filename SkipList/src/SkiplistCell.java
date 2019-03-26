@@ -1,5 +1,6 @@
 public class SkiplistCell {
-	private int value, linkLeft, linkRight;
+	private int value;
+	private Integer linkLeft, linkRight;
 	
 	public SkiplistCell (int value) {
 		this.value = value;
@@ -12,7 +13,6 @@ public class SkiplistCell {
 		linkRight = right;
 	}
 	
-	@SuppressWarnings("null")
 	public SkiplistCell(String val, int left, int right){
 		if (val.equalsIgnoreCase("inf")) {
 			value = Integer.MAX_VALUE;

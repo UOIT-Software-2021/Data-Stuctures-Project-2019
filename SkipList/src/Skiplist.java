@@ -25,6 +25,10 @@ public class Skiplist {
 		list = new ArrayList<SkiplistLayer>(0);
 
 		int[] numReps = new int[arr.length];
+		
+		for (int i = 0; i < numReps.length; i++) {
+			numReps[i] = 1;
+		}
 
 		double rand = Math.random();
 		for (int i = 0; i < numReps.length; i++) {
@@ -33,9 +37,9 @@ public class Skiplist {
 				numReps[i]++;
 			}
 		}
-
-		while (getArrayMaxVal(arr) > 0) {
-			int[] temp = new int[getNumPosNumbers(numReps)];
+		int[] temp = new int[getNumPosNumbers(numReps)];
+		while (getArrayMaxVal(numReps) > 0) {
+			temp = new int[getNumPosNumbers(numReps)];
 			ArrayList<Integer> array = new ArrayList<Integer>();
 
 			for (int i = 0; i < numReps.length; i++) {
@@ -124,20 +128,44 @@ public class Skiplist {
 	@Override
 	public String toString() {
 		String str = "";
-		String[][] strArr = new String[height][maxWidth];
-
+		String[][] strArr = new String[height][maxWidth];		
+		
+		for (int i = 0; i < maxWidth; i++) {
+				strArr[0][i] = list.get(0).getCell(i).toString();
+		}
+		
+		for (int i = 1; i < height; i++) {
+			int currWidth = list.get(i).getLayerWidth();
+			for (int j = 0; j < currWidth; j++) {
+				int currentIndex = j;
+				if (list.get(i).getCell(j).getValue() == list.get(i - 1).getCell(j).getValue()) {
+					strArr[i][currentIndex] = list.get(i).getCell(j).toString();
+				}
+				else {
+					strArr[i][j] = " ";
+				}
+			}
+		}
+		
+		/*
 		for (int i = 0; i < maxWidth; i++) {
 			int bottomVal = list.get(0).getCell(i).getValue();
 			for (int j = 0; j < height; j++) {
-				
-				//strArr[j][i] = 
+				if (list.get(j).getCell(i).getValue() == bottomVal) {
+					strArr[j][i] = list.get(j).getCell(i).toString();
+				}
+				else {
+					strArr[j][i] = " ";
+				}
 			}
 		}
+		*/
 
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < maxWidth; i++) {
-				str += strArr[i][j];
+				str += strArr[j][i] + " ";
 			}
+			str += "\n";
 		}
 
 		return str;
@@ -145,13 +173,14 @@ public class Skiplist {
 
 	// helper methods to reduce code length //
 	private void setLayerWidth() {
+		layerWidth = new ArrayList<Integer>(0);
 		for (int i = 0; i < list.size(); i++) {
 			layerWidth.add(list.get(i).getLayerWidth());
 		}
 	}
 
 	private int getArrayMaxVal(int[] arr) {
-		int max = Integer.MAX_VALUE;
+		int max = Integer.MIN_VALUE;
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i] > max) {
 				max = arr[i];
@@ -172,6 +201,11 @@ public class Skiplist {
 
 	private boolean isSorted(int[] arr) {
 		boolean isSorted = false;
+		
+		if (arr.length < 3) {
+			return true;
+		}
+		
 		for (int i = 0; i < arr.length - 1; i++) {
 			if (arr[i] > arr[i + 1]) {
 				return false;

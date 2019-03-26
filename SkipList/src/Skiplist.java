@@ -32,6 +32,7 @@ public class Skiplist {
 
 		double rand = Math.random();
 		for (int i = 0; i < numReps.length; i++) {
+			rand = Math.random();
 			while (rand > 0.5) {
 				rand = Math.random();
 				numReps[i]++;
@@ -130,7 +131,7 @@ public class Skiplist {
 		String str = "";
 		String[][] strArr = new String[height][maxWidth];		
 		
-		for (int i = 0; i < maxWidth; i++) {
+		/*for (int i = 0; i < maxWidth; i++) {
 				strArr[0][i] = list.get(0).getCell(i).toString();
 		}
 		
@@ -138,32 +139,30 @@ public class Skiplist {
 			int currWidth = list.get(i).getLayerWidth();
 			for (int j = 0; j < currWidth; j++) {
 				int currentIndex = j;
-				if (list.get(i).getCell(j).getValue() == list.get(i - 1).getCell(j).getValue()) {
+				if (list.get(i).getCell(j).getValue() == list.get(i - 1).getCell(currentIndex).getValue()) {
 					strArr[i][currentIndex] = list.get(i).getCell(j).toString();
+					
 				}
 				else {
-					strArr[i][j] = " ";
+					strArr[i][currentIndex] = " ";
+					currentIndex++;
 				}
 			}
 		}
 		
-		/*
-		for (int i = 0; i < maxWidth; i++) {
-			int bottomVal = list.get(0).getCell(i).getValue();
-			for (int j = 0; j < height; j++) {
-				if (list.get(j).getCell(i).getValue() == bottomVal) {
-					strArr[j][i] = list.get(j).getCell(i).toString();
-				}
-				else {
-					strArr[j][i] = " ";
-				}
-			}
-		}
-		*/
-
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < maxWidth; i++) {
 				str += strArr[j][i] + " ";
+			}
+			str += "\n";
+		}
+		
+		*/
+		
+		for (int i = 0; i < height; i++) {
+			int currWidth = list.get(i).getLayerWidth();
+			for (int j = 0; j < currWidth; j++) {
+				str += list.get(i).getCell(j).toString() + " ";
 			}
 			str += "\n";
 		}

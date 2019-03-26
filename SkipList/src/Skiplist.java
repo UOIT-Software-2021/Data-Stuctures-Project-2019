@@ -25,7 +25,7 @@ public class Skiplist {
 		list = new ArrayList<SkiplistLayer>(0);
 
 		int[] numReps = new int[arr.length];
-		
+
 		for (int i = 0; i < numReps.length; i++) {
 			numReps[i] = 1;
 		}
@@ -64,11 +64,9 @@ public class Skiplist {
 	// FIXME not correct it's just looking for the value it needs to look for the
 	// value that's smaller than it
 	public void insert(int val) {
-		int index = this.search(val, 0);
-		int rightIndex = this.search(val, 1);
-		int leftIndex = this.search(val, -1);
+		SkiplistCell cell = this.search(val);
 
-		if (index == -1 || rightIndex == -1 || leftIndex == -1) {
+		if (cell == null) {
 			return;
 		}
 
@@ -81,22 +79,29 @@ public class Skiplist {
 		}
 
 		for (int i = 0; i < numReps; i++) {
-			list.get(i).insertCell(list.get(i).getCell(leftIndex), list.get(i).getCell(index), list.get(i).getCell(rightIndex));
+			// list.get(i).insertCell(list.get(i).getCell(leftIndex),
+			// list.get(i).getCell(index), list.get(i).getCell(rightIndex));
 		}
 	}
 
 	public void delete(int val) {
-		int index = this.search(val, 0);
-		int rightIndex = this.search(val, 1);
-		int leftIndex = this.search(val, -1);
+		SkiplistCell cell = this.search(val);
 
-		if (index == -1 || rightIndex == -1 || leftIndex == -1) {
+		if (cell == null) {
 			return;
 		}
 
 		for (int i = 0; i < height; i++) {
-			list.get(i).removeCell(list.get(i).getCell(leftIndex), list.get(i).getCell(index), list.get(i).getCell(rightIndex));
+			int currSize = layerWidth.get(i);
+			for (int j = 0; j < currSize; j++) {
+				if (list.get(i).getList().get(j).getValue() == cell.getValue()) {
+					list.get(i).removeCell(cell);
+					break;
+				}
+			}
 		}
+
+		setLayerWidth();
 	}
 
 	/**
@@ -105,62 +110,50 @@ public class Skiplist {
 	 * @param int regex - what value you are looking for
 	 * @param int offset - -1, 0, or 1 get the value before, at, or after the index
 	 *            found in the search (for the value based linking)
-	 * @return int - the index of occurrence (-1 if no index)
+	 * @return SkiplistCell - the cell object
 	 */
-	public int search(int regex, int offest) {
+	public SkiplistCell search(int regex) {
 		for (int i = height - 1; i >= 0; i--) {
 			for (int j = 0; j < layerWidth.get(i); j++) {
 
-				if (regex > list.get(i).getCell(j).getValue()) {
-					break;
+				int compareRegex = list.get(i).getCell(j).getValue();
+
+				if (regex == compareRegex) {
+					return list.get(i).getCell(j);
 				}
-				else if (regex == list.get(i).getCell(j).getValue()) {
-					return j;
-				}
-				else {
+				else if (regex < compareRegex) {
 					continue;
 				}
 			}
 		}
 
-		return -1;
+		return null;
 	}
 
 	@Override
 	public String toString() {
 		String str = "";
-		String[][] strArr = new String[height][maxWidth];		
-		
-		/*for (int i = 0; i < maxWidth; i++) {
-				strArr[0][i] = list.get(0).getCell(i).toString();
-		}
-		
-		for (int i = 1; i < height; i++) {
-			int currWidth = list.get(i).getLayerWidth();
-			for (int j = 0; j < currWidth; j++) {
-				int currentIndex = j;
-				if (list.get(i).getCell(j).getValue() == list.get(i - 1).getCell(currentIndex).getValue()) {
-					strArr[i][currentIndex] = list.get(i).getCell(j).toString();
-					
-				}
-				else {
-					strArr[i][currentIndex] = " ";
-					currentIndex++;
-				}
-			}
-		}
-		
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < maxWidth; i++) {
-				str += strArr[j][i] + " ";
-			}
-			str += "\n";
-		}
-		
-		*/
-		
+		/*
+		 * String[][] strArr = new String[height][maxWidth];
+		 * 
+		 * for (int i = 0; i < maxWidth; i++) { strArr[0][i] =
+		 * list.get(0).getCell(i).toString(); }
+		 * 
+		 * for (int i = 1; i < height; i++) { int currWidth =
+		 * list.get(i).getLayerWidth(); for (int j = 0; j < currWidth; j++) { int
+		 * currentIndex = j; if (list.get(i).getCell(j).getValue() == list.get(i -
+		 * 1).getCell(currentIndex).getValue()) { strArr[i][currentIndex] =
+		 * list.get(i).getCell(j).toString();
+		 * 
+		 * } else { strArr[i][currentIndex] = " "; currentIndex++; } } }
+		 * 
+		 * for (int j = 0; j < height; j++) { for (int i = 0; i < maxWidth; i++) { str
+		 * += strArr[j][i] + " "; } str += "\n"; }
+		 * 
+		 */
+
 		for (int i = 0; i < height; i++) {
-			int currWidth = list.get(i).getLayerWidth();
+			int currWidth = layerWidth.get(i);
 			for (int j = 0; j < currWidth; j++) {
 				str += list.get(i).getCell(j).toString() + " ";
 			}
@@ -176,6 +169,7 @@ public class Skiplist {
 		for (int i = 0; i < list.size(); i++) {
 			layerWidth.add(list.get(i).getLayerWidth());
 		}
+		maxWidth = layerWidth.get(0);
 	}
 
 	private int getArrayMaxVal(int[] arr) {
@@ -200,11 +194,11 @@ public class Skiplist {
 
 	private boolean isSorted(int[] arr) {
 		boolean isSorted = false;
-		
+
 		if (arr.length < 3) {
 			return true;
 		}
-		
+
 		for (int i = 0; i < arr.length - 1; i++) {
 			if (arr[i] > arr[i + 1]) {
 				return false;

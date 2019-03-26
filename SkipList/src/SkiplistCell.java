@@ -51,6 +51,11 @@ public class SkiplistCell {
 	}
 	
 	@Override
+	public SkiplistCell clone() {
+		return new SkiplistCell(this.value, this.linkRight, this.linkRight);
+	}
+	
+	@Override
 	public String toString() {
 		if (this.value == Integer.MAX_VALUE) {
 			return "inf";

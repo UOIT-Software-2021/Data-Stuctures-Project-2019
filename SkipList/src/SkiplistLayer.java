@@ -72,16 +72,16 @@ public class SkiplistLayer {
 		// if inserting or modifying a cell
 		if (opType) {
 			// set left cell to link to new/modified cell on right
-			list.get(list.indexOf(left)).setRightLink(centerCell.getValue());
+			list.get(indexOf(left)).setRightLink(centerCell.getValue());
 			// set right cell to link to new/modified cell on left
-			list.get(list.indexOf(right)).setLeftLink(centerCell.getValue());
+			list.get(indexOf(right)).setLeftLink(centerCell.getValue());
 		}
 		// if removing a cell
 		else {
 			// set left cell to link to right cell
-			list.get(list.indexOf(centerCell) - 1).setRightLink(right.getValue());
+			list.get(indexOf(centerCell) - 1).setRightLink(right.getValue());
 			// set right cell to link to left cell
-			list.get(list.indexOf(centerCell) + 1).setLeftLink(left.getValue());
+			list.get(indexOf(centerCell) + 1).setLeftLink(left.getValue());
 		}
 	}
 
@@ -100,7 +100,26 @@ public class SkiplistLayer {
 	public void removeCell(SkiplistCell left, SkiplistCell removeCell, SkiplistCell right) {
 		setLinks(left, removeCell, right, false);
 		// remove desired cell
-		list.remove(list.indexOf(removeCell));
+		list.remove(removeCell);
 	}
-
+	
+	public void removeCell(SkiplistCell removeCell) {
+		try {
+			setLinks(list.get(indexOf(removeCell) - 1), removeCell, list.get(indexOf(removeCell) + 1), false);
+			// remove desired cell
+			list.remove(indexOf(removeCell));
+		}catch(Exception e) {
+			return;
+		}
+	}
+	
+	public int indexOf(SkiplistCell cell) {
+		for (int i = 0; i < list.size(); i++) {
+			if (cell.getValue() == list.get(i).getValue()/* && cell.getLeftLink() == list.get(i).getLeftLink() && cell.getRightLink() == list.get(i).getRightLink()*/) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 }
